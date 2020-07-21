@@ -5409,10 +5409,10 @@ inflight@^1.0.4:
     once "^1.3.0"
     wrappy "1"
 
-ingredient-merge@1.1.5:
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/ingredient-merge/-/ingredient-merge-1.1.5.tgz#31fd824f78691d739cd6668a943ee9dab31c84b6"
-  integrity sha512-ua8UnAlzW73TpA26ZU/I6LW8DoZJq1TCQQOkReYMpxJa0qjXRcZH8A5GLED2bEyBLpZ3Uk/j0g6oBgdFnGtilw==
+ingredient-merge@1.1.6:
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/ingredient-merge/-/ingredient-merge-1.1.6.tgz#faf4abe47995511f3a67e96c5436497bb8414756"
+  integrity sha512-6gl/u2Lehs9dE4yuw9RstnqzpFRbA+5ri2FkDss2mUZ2ynGAFQSopa0FCGa2AFdJZpk2UDo5i17pSC2bvCU4ag==
   dependencies:
     convert-units "^2.3.4"
     ingredients-parser "^1.4.0"
