@@ -1,5 +1,3 @@
-import { colors } from './colors';
-
 type Shadows = [
   'none',
   string,

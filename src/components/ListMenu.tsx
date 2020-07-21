@@ -1,22 +1,12 @@
 import * as React from 'react';
-import {
-  makeStyles,
-  Theme,
-  IconButton,
-  MenuItem,
-  Menu,
-} from '@material-ui/core';
+import { IconButton, MenuItem, Menu } from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
 import { useList } from '../contexts/ListContext';
 
 export type ListMenuProps = {};
 
-const useStyles = makeStyles<Theme, ListMenuProps>((theme) => ({}));
-
 export function ListMenu(props: ListMenuProps) {
-  const classes = useStyles(props);
-
-  const [_list, setList] = useList();
+  const { setList } = useList();
 
   const [anchorEl, setAnchorEl] = React.useState<Element | null>(null);
 

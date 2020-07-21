@@ -29,7 +29,17 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": "react-app",
+    "rules": {
+      "@typescript-eslint/no-unused-vars": [
+        "warning",
+        {
+          "ignoreRestSiblings": true,
+          "varsIgnorePattern": "^_",
+          "argsIgnorePattern": "^_"
+        }
+      ]
+    }
   },
   "browserslist": {
     "production": [
@@ -46,6 +56,7 @@
   "devDependencies": {
     "@types/react-beautiful-dnd": "^13.0.0",
     "@types/recoil": "^0.0.1",
-    "prettier": "^2.0.5"
+    "prettier": "^2.0.5",
+    "tslint": "^6.1.2"
   }
 }

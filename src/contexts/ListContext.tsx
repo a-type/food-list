@@ -25,6 +25,5 @@ export function ListProvider({ children }: { children: React.ReactNode }) {
 }
 
 export function useList() {
-  const ctx = React.useContext(ListContext);
-  return [ctx.list, ctx.setList] as const;
+  return React.useContext(ListContext);
 }

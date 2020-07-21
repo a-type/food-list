@@ -1,24 +1,11 @@
 import * as React from 'react';
-import {
-  makeStyles,
-  Theme,
-  Box,
-  Typography,
-  Button,
-  Paper,
-  Collapse,
-} from '@material-ui/core';
+import { Box, Typography, Button, Paper, Collapse } from '@material-ui/core';
 
 const storageKey = 'has-prompted-install';
 
 export type InstallPromptProps = {};
 
-const useStyles = makeStyles<Theme, InstallPromptProps>((theme) => ({}));
-
 export function InstallPrompt(props: InstallPromptProps) {
-  const classes = useStyles(props);
-  const {} = props;
-
   const [hasBeenPrompted, setHasBeenPrompted] = React.useState(
     () => !!localStorage.getItem(storageKey),
   );

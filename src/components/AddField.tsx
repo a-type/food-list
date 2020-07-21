@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { makeStyles, Theme, TextField } from '@material-ui/core';
+import { TextField } from '@material-ui/core';
 import { useList } from '../contexts/ListContext';
 import { mergeIngredients } from 'ingredient-merge';
 import { FoodListItem } from '../types';
@@ -9,39 +9,37 @@ export type AddFieldProps = {
   className?: string;
 };
 
-const useStyles = makeStyles<Theme, AddFieldProps>((theme) => ({}));
-
 function hasTextContent(str: string) {
   return !!str?.trim().length;
 }
 
 export function AddField(props: AddFieldProps) {
-  const classes = useStyles(props);
-  const { ...rest } = props;
+  const { setList } = useList();
 
-  const [_list, setList] = useList();
+  const onSubmit = React.useCallback(
+    (rawString: string) => {
+      const ingredients = rawString.split(/\n/).filter(hasTextContent);
 
-  const onSubmit = (rawString: string) => {
-    const ingredients = rawString.split(/\n/).filter(hasTextContent);
+      setList((existing) =>
+        mergeIngredients(
+          ingredients.filter((i) => !!i.trim()?.length),
+          existing,
+        ).map((group) => {
+          // this could be improved
+          const asItem = group as FoodListItem;
+          if (asItem.done === undefined) {
+            asItem.done = false;
+          }
+          return asItem;
+        }),
+      );
 
-    setList((existing) =>
-      mergeIngredients(
-        ingredients.filter((i) => !!i.trim()?.length),
-        existing,
-      ).map((group) => {
-        // this could be improved
-        const asItem = group as FoodListItem;
-        if (asItem.done === undefined) {
-          asItem.done = false;
-        }
-        return asItem;
-      }),
-    );
-
-    setTimeout(() => {
-      setText('');
-    }, 0);
-  };
+      setTimeout(() => {
+        setText('');
+      }, 0);
+    },
+    [setList],
+  );
 
   const [text, setText] = React.useState('');
 
@@ -53,7 +51,7 @@ export function AddField(props: AddFieldProps) {
         setText(ev.target.value);
       }
     },
-    [onSubmit],
+    [onSubmit, text],
   );
 
   const handleKeyDown = React.useCallback(
@@ -88,7 +86,7 @@ export function AddField(props: AddFieldProps) {
         enqueueSnackbar('Shared items added!', { variant: 'success' });
       }
     }
-  }, []);
+  }, [enqueueSnackbar, onSubmit]);
 
   return (
     <TextField
@@ -97,7 +95,7 @@ export function AddField(props: AddFieldProps) {
       onKeyDown={handleKeyDown}
       onPaste={handlePaste}
       label="Type or paste ingredients"
-      {...rest}
+      {...props}
     />
   );
 }

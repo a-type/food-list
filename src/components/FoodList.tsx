@@ -1,14 +1,5 @@
 import * as React from 'react';
-import {
-  makeStyles,
-  Theme,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemIcon,
-  Checkbox,
-  Box,
-} from '@material-ui/core';
+import { makeStyles, Theme, Box } from '@material-ui/core';
 import { FoodListItem } from '../types';
 import { useList } from '../contexts/ListContext';
 import { FoodDraggableList } from './FoodDraggableList';
@@ -31,7 +22,7 @@ const useStyles = makeStyles<Theme, FoodListProps>((theme) => ({
 export function FoodList(props: FoodListProps) {
   const classes = useStyles(props);
 
-  const [list, setList] = useList();
+  const { list, setList } = useList();
 
   const onItemDoneChange = React.useCallback(
     (itemId: string, done: boolean) => {
@@ -47,7 +38,7 @@ export function FoodList(props: FoodListProps) {
         ].sort((a, b) => (a.done !== b.done ? (a.done ? 1 : -1) : 0));
       });
     },
-    [],
+    [setList],
   );
 
   const [notDone, done] = list.reduce<[FoodListItem[], FoodListItem[]]>(
@@ -75,7 +66,7 @@ export function FoodList(props: FoodListProps) {
         return reorder(existing, itemIndex, targetIndex);
       });
     },
-    [notDone],
+    [notDone, setList],
   );
 
   const onDoneItemMove = React.useCallback(
@@ -91,7 +82,7 @@ export function FoodList(props: FoodListProps) {
         return reorder(existing, itemIndex, targetIndex);
       });
     },
-    [done],
+    [done, setList],
   );
 
   return (
@@ -107,6 +98,7 @@ export function FoodList(props: FoodListProps) {
         onItemDoneChange={onItemDoneChange}
         onItemMove={onDoneItemMove}
         droppableId="done"
+        className={classes.doneList}
       />
     </Box>
   );

@@ -22,6 +22,7 @@ export type FoodDraggableListProps = {
   onItemDoneChange: (itemId: string, checked: boolean) => void;
   onItemMove: (itemId: string, newIndex: number) => void;
   droppableId: string;
+  className?: string;
 };
 
 const useStyles = makeStyles<Theme, FoodDraggableListProps>((theme) => ({
@@ -35,7 +36,7 @@ const useStyles = makeStyles<Theme, FoodDraggableListProps>((theme) => ({
 
 export function FoodDraggableList(props: FoodDraggableListProps) {
   const classes = useStyles(props);
-  const { items, onItemDoneChange, droppableId, onItemMove } = props;
+  const { items, onItemDoneChange, droppableId, onItemMove, className } = props;
 
   const handleDrag = (result: DropResult) => {
     if (!result.destination) return;
@@ -47,7 +48,11 @@ export function FoodDraggableList(props: FoodDraggableListProps) {
     <DragDropContext onDragEnd={handleDrag}>
       <Droppable droppableId={droppableId}>
         {(provided, snapshot) => (
-          <List {...provided.droppableProps} ref={provided.innerRef}>
+          <List
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+            className={className}
+          >
             {items.map((item, index) => (
               <Draggable key={item.id} draggableId={item.id} index={index}>
                 {(dragProvided, dragSnapshot) => (
