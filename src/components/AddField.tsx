@@ -1,13 +1,10 @@
 import * as React from 'react';
-import {
-  makeStyles,
-  Theme,
-  TextField,
-  OutlinedTextFieldProps,
-} from '@material-ui/core';
+import { makeStyles, Theme, TextField } from '@material-ui/core';
+import { useList } from '../contexts/ListContext';
+import { mergeIngredients } from 'ingredient-merge';
+import { FoodListItem } from '../types';
 
 export type AddFieldProps = {
-  onAdd: (ingredients: string[]) => void;
   className?: string;
 };
 
@@ -19,7 +16,25 @@ function hasTextContent(str: string) {
 
 export function AddField(props: AddFieldProps) {
   const classes = useStyles(props);
-  const { onAdd: onSubmit, ...rest } = props;
+  const { ...rest } = props;
+
+  const [_list, setList] = useList();
+
+  const onSubmit = (ingredients: string[]) => {
+    setList((existing) =>
+      mergeIngredients(
+        ingredients.filter((i) => !!i.trim()?.length),
+        existing,
+      ).map((group) => {
+        // this could be improved
+        const asItem = group as FoodListItem;
+        if (asItem.done === undefined) {
+          asItem.done = false;
+        }
+        return asItem;
+      }),
+    );
+  };
 
   const [text, setText] = React.useState('');
 

@@ -10,10 +10,12 @@
     "@testing-library/user-event": "^7.1.2",
     "@types/jest": "^24.0.0",
     "@types/node": "^12.0.0",
-    "@types/react": "^16.9.0",
-    "@types/react-dom": "^16.9.0",
+    "@types/react": "^16.9.43",
+    "@types/react-dom": "^16.9.8",
+    "clsx": "^1.1.1",
     "ingredient-merge": "1.1.6",
     "react": "^16.13.1",
+    "react-beautiful-dnd": "^13.0.0",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
     "recoil": "^0.0.10",
@@ -41,6 +43,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-beautiful-dnd": "^13.0.0",
     "@types/recoil": "^0.0.1",
     "prettier": "^2.0.5"
   }

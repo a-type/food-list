@@ -10,11 +10,17 @@ import {
   Box,
 } from '@material-ui/core';
 import { FoodListItem } from '../types';
+import { useList } from '../contexts/ListContext';
+import { FoodDraggableList } from './FoodDraggableList';
 
-export type FoodListProps = {
-  list: FoodListItem[];
-  onItemDoneChange: (itemId: string, done: boolean) => void;
-};
+export type FoodListProps = {};
+
+function reorder<T>(list: T[], startIndex: number, endIndex: number) {
+  const result = [...list];
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
+  return result;
+}
 
 const useStyles = makeStyles<Theme, FoodListProps>((theme) => ({
   doneList: {
@@ -24,7 +30,25 @@ const useStyles = makeStyles<Theme, FoodListProps>((theme) => ({
 
 export function FoodList(props: FoodListProps) {
   const classes = useStyles(props);
-  const { list, onItemDoneChange } = props;
+
+  const [list, setList] = useList();
+
+  const onItemDoneChange = React.useCallback(
+    (itemId: string, done: boolean) => {
+      setList((existing) => {
+        const itemIndex = existing.findIndex((group) => group.id === itemId);
+        return [
+          ...existing.slice(0, itemIndex),
+          {
+            ...existing[itemIndex],
+            done,
+          },
+          ...existing.slice(itemIndex + 1),
+        ].sort((a, b) => (a.done !== b.done ? (a.done ? 1 : -1) : 0));
+      });
+    },
+    [],
+  );
 
   const [notDone, done] = list.reduce<[FoodListItem[], FoodListItem[]]>(
     function ([notDoneList, doneList], item) {
@@ -38,44 +62,52 @@ export function FoodList(props: FoodListProps) {
     [[], []],
   );
 
+  const onNotDoneItemMove = React.useCallback(
+    (itemId: string, toIndex: number) => {
+      setList((existing) => {
+        // find index of original item
+        const itemIndex = existing.findIndex((i) => i.id === itemId);
+        // find id of notdone item dropped on
+        const targetId = notDone[toIndex].id;
+        // find index of that in the main list
+        const targetIndex = existing.findIndex((i) => i.id === targetId);
+        // rearrange
+        return reorder(existing, itemIndex, targetIndex);
+      });
+    },
+    [notDone],
+  );
+
+  const onDoneItemMove = React.useCallback(
+    (itemId: string, toIndex: number) => {
+      setList((existing) => {
+        // find index of original item
+        const itemIndex = existing.findIndex((i) => i.id === itemId);
+        // find id of done item dropped on
+        const targetId = done[toIndex].id;
+        // find index of that in the main list
+        const targetIndex = existing.findIndex((i) => i.id === targetId);
+        // rearrange
+        return reorder(existing, itemIndex, targetIndex);
+      });
+    },
+    [done],
+  );
+
   return (
     <Box>
-      <List>
-        {notDone.map((group) => (
-          <ListItem key={`${group.id}`}>
-            <ListItemIcon>
-              <Checkbox
-                value="done"
-                checked={false}
-                onChange={(ev) => {
-                  onItemDoneChange(group.id, true);
-                }}
-              />
-            </ListItemIcon>
-            <ListItemText>
-              {group.quantity.value} {group.quantity.unit} {group.food}
-            </ListItemText>
-          </ListItem>
-        ))}
-      </List>
-      <List className={classes.doneList}>
-        {done.map((group) => (
-          <ListItem key={`${group.id}`}>
-            <ListItemIcon>
-              <Checkbox
-                value="done"
-                checked={true}
-                onChange={(ev) => {
-                  onItemDoneChange(group.id, false);
-                }}
-              />
-            </ListItemIcon>
-            <ListItemText>
-              {group.quantity.value} {group.quantity.unit} {group.food}
-            </ListItemText>
-          </ListItem>
-        ))}
-      </List>
+      <FoodDraggableList
+        items={notDone}
+        onItemDoneChange={onItemDoneChange}
+        onItemMove={onNotDoneItemMove}
+        droppableId="not-done"
+      />
+      <FoodDraggableList
+        items={done}
+        onItemDoneChange={onItemDoneChange}
+        onItemMove={onDoneItemMove}
+        droppableId="done"
+      />
     </Box>
   );
 }

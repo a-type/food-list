@@ -2,14 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { RecoilRoot } from 'recoil';
-import { mergeIngredients } from 'ingredient-merge';
+import { ListProvider } from './contexts/ListContext';
 
 ReactDOM.render(
   <React.StrictMode>
-    <RecoilRoot>
+    <ListProvider>
       <App />
-    </RecoilRoot>
+    </ListProvider>
   </React.StrictMode>,
   document.getElementById('root'),
 );
