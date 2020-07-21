@@ -11,6 +11,7 @@ import { lightTheme } from './theme/theme';
 import { AddField } from './components/AddField';
 import { FoodList } from './components/FoodList';
 import { ListMenu } from './components/ListMenu';
+import { InstallPrompt } from './components/InstallPrompt';
 
 const useStyles = makeStyles((theme) => ({
   addField: {
@@ -34,6 +35,7 @@ function App() {
       <CssBaseline />
       <div className="App">
         <Container maxWidth="md">
+          <InstallPrompt />
           <Box display="flex" flexDirection="row" alignItems="center">
             <Typography variant="h1" className={classes.title}>
               Food List

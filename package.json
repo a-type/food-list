@@ -14,6 +14,7 @@
     "@types/react-dom": "^16.9.8",
     "clsx": "^1.1.1",
     "ingredient-merge": "1.1.6",
+    "notistack": "^0.9.17",
     "react": "^16.13.1",
     "react-beautiful-dnd": "^13.0.0",
     "react-dom": "^16.13.1",

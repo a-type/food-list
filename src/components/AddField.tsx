@@ -3,6 +3,7 @@ import { makeStyles, Theme, TextField } from '@material-ui/core';
 import { useList } from '../contexts/ListContext';
 import { mergeIngredients } from 'ingredient-merge';
 import { FoodListItem } from '../types';
+import { useSnackbar } from 'notistack';
 
 export type AddFieldProps = {
   className?: string;
@@ -20,7 +21,9 @@ export function AddField(props: AddFieldProps) {
 
   const [_list, setList] = useList();
 
-  const onSubmit = (ingredients: string[]) => {
+  const onSubmit = (rawString: string) => {
+    const ingredients = rawString.split(/\n/).filter(hasTextContent);
+
     setList((existing) =>
       mergeIngredients(
         ingredients.filter((i) => !!i.trim()?.length),
@@ -34,6 +37,10 @@ export function AddField(props: AddFieldProps) {
         return asItem;
       }),
     );
+
+    setTimeout(() => {
+      setText('');
+    }, 0);
   };
 
   const [text, setText] = React.useState('');
@@ -41,8 +48,7 @@ export function AddField(props: AddFieldProps) {
   const handleChange = React.useCallback(
     (ev: React.ChangeEvent<HTMLInputElement>) => {
       if (ev.target.value.match(/\n/)) {
-        onSubmit(text.split(/\n/).filter(hasTextContent));
-        setText('');
+        onSubmit(text);
       } else {
         setText(ev.target.value);
       }
@@ -53,8 +59,7 @@ export function AddField(props: AddFieldProps) {
   const handleKeyDown = React.useCallback(
     (ev: React.KeyboardEvent<HTMLDivElement>) => {
       if (ev.key === 'Enter') {
-        onSubmit(text.split(/\n/).filter(hasTextContent));
-        setText('');
+        onSubmit(text);
       }
     },
     [text, onSubmit],
@@ -64,14 +69,26 @@ export function AddField(props: AddFieldProps) {
     (e: any) => {
       const text = e.clipboardData.getData('text/plain');
       if (text.match(/\n/)) {
-        onSubmit(text.split(/\n/).filter(hasTextContent));
-        setTimeout(() => {
-          setText('');
-        }, 0);
+        onSubmit(text);
       }
     },
     [onSubmit],
   );
+
+  const { enqueueSnackbar } = useSnackbar();
+
+  // listening for query params
+  React.useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const url = new URL(window.location.toString());
+      const add = url.searchParams.get('add');
+      if (add) {
+        onSubmit(add);
+        window.history.replaceState(null, 'home', '/');
+        enqueueSnackbar('Shared items added!', { variant: 'success' });
+      }
+    }
+  }, []);
 
   return (
     <TextField
