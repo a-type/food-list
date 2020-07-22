@@ -15,6 +15,8 @@ jobs:
           node-version: 12
       - run: yarn install
       - run: yarn build
+        env:
+          - PUBLIC_URL: https://a-type.github.io/food-list/
 
       - name: Github Pages
         uses: crazy-max/ghaction-github-pages@v1.2.5
