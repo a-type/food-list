@@ -56,9 +56,15 @@ function App() {
   return (
     <div className={classes.root}>
       <Container maxWidth="md" className={classes.container}>
-        <Box display="flex" flexDirection="column" height="100%">
+        <Box display="flex" flexDirection="column" height="100%" pt={2}>
           <InstallPrompt />
-          <Box display="flex" flexDirection="row" alignItems="center" mb={2}>
+          <Box
+            display="flex"
+            flexDirection="row"
+            alignItems="center"
+            mb={2}
+            px={1}
+          >
             <Typography variant="h1" className={classes.title}>
               Food List
             </Typography>

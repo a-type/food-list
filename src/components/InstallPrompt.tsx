@@ -22,7 +22,7 @@ export function InstallPrompt(props: InstallPromptProps) {
         bgcolor={colors.green[500]}
         color={colors.purple[700]}
         p={2}
-        my={2}
+        mb={2}
         component={Paper}
       >
         <Typography variant="body1" paragraph>

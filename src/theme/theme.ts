@@ -78,25 +78,25 @@ const themeFactory = (
         h1: {
           fontSize: typography.pxToRem(48),
           [breakpoints.down('sm')]: {
-            fontSize: '5vmax',
+            fontSize: '4vmax',
           },
         },
         h2: {
           fontSize: typography.pxToRem(40),
           [breakpoints.down('sm')]: {
-            fontSize: '4vmax',
+            fontSize: '3vmax',
           },
         },
         h3: {
           fontSize: typography.pxToRem(32),
           [breakpoints.down('sm')]: {
-            fontSize: '3.75vmax',
+            fontSize: '2.75vmax',
           },
         },
         h4: {
           fontSize: typography.pxToRem(24),
           [breakpoints.down('sm')]: {
-            fontSize: '3.3vmax',
+            fontSize: '2.3vmax',
           },
         },
       },
@@ -104,6 +104,7 @@ const themeFactory = (
         root: {
           borderRadius: 24,
           padding: spacing(1),
+          backgroundColor: colors.grey[100],
           '&$focused': {
             backgroundColor: colors.yellow[100],
           },
@@ -122,6 +123,16 @@ const themeFactory = (
           '&$focused': {
             color: colors.yellow[900],
           },
+        },
+      },
+      MuiChip: {
+        root: {
+          backgroundColor: colors.grey[100],
+        },
+      },
+      MuiIconButton: {
+        root: {
+          color: colors.grey[900],
         },
       },
     },

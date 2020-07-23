@@ -27,6 +27,7 @@ export function ListMenu(props: ListMenuProps) {
         aria-controls="list-menu"
         aria-haspopup="true"
         onClick={handleOpen}
+        color="inherit"
       >
         <MoreVert />
       </IconButton>

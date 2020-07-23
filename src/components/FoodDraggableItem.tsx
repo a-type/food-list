@@ -88,6 +88,7 @@ export function FoodDraggableItem({
               }}
             />
           </ListItemIcon>
+          <ListItemText className={classes.name}>{item.food}</ListItemText>
           <Chip
             label={`${readableQuantity(item.quantity.value)} ${
               (item.quantity.unit &&
@@ -96,7 +97,6 @@ export function FoodDraggableItem({
             }`}
             className={classes.quantity}
           />
-          <ListItemText className={classes.name}>{item.food}</ListItemText>
           <OriginalIngredients
             className={classes.originalIngredients}
             ingredients={item.items}
