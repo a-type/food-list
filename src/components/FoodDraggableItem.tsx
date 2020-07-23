@@ -8,7 +8,6 @@ import {
   ListItemText,
   makeStyles,
   Chip,
-  Box,
 } from '@material-ui/core';
 import clsx from 'clsx';
 import { DragHandle } from '@material-ui/icons';
