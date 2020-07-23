@@ -7,6 +7,7 @@ import { useSnackbar } from 'notistack';
 
 export type AddFieldProps = {
   className?: string;
+  fullWidth?: boolean;
 };
 
 function hasTextContent(str: string) {

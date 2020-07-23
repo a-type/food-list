@@ -16,10 +16,12 @@
     "clsx": "^1.1.1",
     "ingredient-merge": "1.1.6",
     "notistack": "^0.9.17",
+    "pluralize": "^8.0.0",
     "react": "^16.13.1",
     "react-beautiful-dnd": "^13.0.0",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
+    "readable-fractions": "^0.1.1",
     "recoil": "^0.0.10",
     "typescript": "~3.7.2"
   },
@@ -55,6 +57,7 @@
     ]
   },
   "devDependencies": {
+    "@types/pluralize": "^0.0.29",
     "@types/react-beautiful-dnd": "^13.0.0",
     "@types/recoil": "^0.0.1",
     "prettier": "^2.0.5",

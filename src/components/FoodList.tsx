@@ -4,7 +4,9 @@ import { FoodListItem } from '../types';
 import { useList } from '../contexts/ListContext';
 import { FoodDraggableList } from './FoodDraggableList';
 
-export type FoodListProps = {};
+export type FoodListProps = {
+  className?: string;
+};
 
 function reorder<T>(list: T[], startIndex: number, endIndex: number) {
   const result = [...list];
@@ -86,7 +88,7 @@ export function FoodList(props: FoodListProps) {
   );
 
   return (
-    <Box>
+    <Box {...props}>
       <FoodDraggableList
         items={notDone}
         onItemDoneChange={onItemDoneChange}

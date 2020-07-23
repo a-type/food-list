@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Box, Typography, Button, Paper, Collapse } from '@material-ui/core';
+import { colors } from '../theme/colors';
 
 const storageKey = 'has-prompted-install';
 
@@ -18,8 +19,8 @@ export function InstallPrompt(props: InstallPromptProps) {
   return (
     <Collapse in={!hasBeenPrompted}>
       <Box
-        bgcolor="primary.main"
-        color="primary.contrastText"
+        bgcolor={colors.green[500]}
+        color={colors.purple[700]}
         p={2}
         my={2}
         component={Paper}

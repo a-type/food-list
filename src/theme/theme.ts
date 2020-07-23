@@ -31,8 +31,19 @@ const baseLightPalette: ThemeOptions['palette'] = {
   },
 };
 
-const { palette: lightPalette, breakpoints } = createMuiTheme({
+const {
+  palette: lightPalette,
+  breakpoints,
+  spacing,
+  typography,
+} = createMuiTheme({
   palette: baseLightPalette,
+  typography: {
+    fontSize: 16,
+  },
+  shape: {
+    borderRadius: 24,
+  },
 });
 const { palette: darkPalette } = createMuiTheme({ palette: baseDarkPalette });
 
@@ -42,7 +53,9 @@ const themeFactory = (
 ) =>
   createMuiTheme({
     palette,
-    shape: {},
+    shape: {
+      borderRadius: 24,
+    },
     shadows,
     typography: {
       fontSize: 16,
@@ -54,42 +67,76 @@ const themeFactory = (
         },
       },
       MuiButton: {
+        root: {
+          fontSize: '0.85rem',
+        },
         textSecondary: {
           color: palette?.text?.secondary,
         },
       },
       MuiTypography: {
         h1: {
+          fontSize: typography.pxToRem(48),
           [breakpoints.down('sm')]: {
             fontSize: '5vmax',
           },
         },
         h2: {
+          fontSize: typography.pxToRem(40),
           [breakpoints.down('sm')]: {
             fontSize: '4vmax',
           },
         },
         h3: {
+          fontSize: typography.pxToRem(32),
           [breakpoints.down('sm')]: {
             fontSize: '3.75vmax',
           },
         },
         h4: {
+          fontSize: typography.pxToRem(24),
           [breakpoints.down('sm')]: {
             fontSize: '3.3vmax',
+          },
+        },
+      },
+      MuiFilledInput: {
+        root: {
+          borderRadius: 24,
+          padding: spacing(1),
+          '&$focused': {
+            backgroundColor: colors.yellow[100],
+          },
+        },
+      },
+      MuiInputLabel: {
+        filled: {
+          transform: 'translate(18px, 28px) scale(1)',
+          '&$shrink': {
+            transform: 'translate(18px, 10px) scale(0.75)',
+          },
+        },
+      },
+      MuiFormLabel: {
+        root: {
+          '&$focused': {
+            color: colors.yellow[900],
           },
         },
       },
     },
     props: {
       MuiTextField: {
-        variant: 'outlined',
+        variant: 'filled',
       },
       MuiButton: {
         color: 'primary',
       },
       MuiLink: {
         underline: 'always',
+      },
+      MuiFilledInput: {
+        disableUnderline: true,
       },
     },
   });

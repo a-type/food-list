@@ -18,6 +18,7 @@ export function ListMenu(props: ListMenuProps) {
 
   const clearChecked = () => {
     setList((current) => current.filter((i) => !i.done));
+    handleClose();
   };
 
   return (
