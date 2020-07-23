@@ -45,10 +45,17 @@ const useStyles = makeStyles((theme) => ({
   },
   name: {
     flex: '1',
+    marginRight: theme.spacing(2),
+    [theme.breakpoints.up('sm')]: {
+      flex: '0 0 auto',
+    },
   },
   quantity: {
     flex: '0 0 auto',
     marginRight: theme.spacing(2),
+    [theme.breakpoints.up('sm')]: {
+      marginRight: 'auto',
+    },
   },
   handle: {
     flex: '0 0 auto',
