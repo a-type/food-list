@@ -13,12 +13,17 @@ import { SimpleNotifier } from './SimpleNotifier';
 
 const notifier = new SimpleNotifier<ServiceWorkerRegistration>();
 
+const anchorOrigin = {
+  vertical: 'top' as const,
+  horizontal: 'left' as const,
+};
+
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={lightTheme}>
       <CssBaseline />
 
-      <SnackbarProvider>
+      <SnackbarProvider anchorOrigin={anchorOrigin}>
         <UpdateListener notifier={notifier} />
         <ListProvider>
           <App />

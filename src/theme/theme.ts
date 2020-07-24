@@ -16,6 +16,7 @@ const baseDarkPalette: ThemeOptions['palette'] = {
     default: colors.purple[900],
     paper: colors.purple[500],
   },
+  success: colors.green,
 };
 const baseLightPalette: ThemeOptions['palette'] = {
   type: 'light',
@@ -29,6 +30,8 @@ const baseLightPalette: ThemeOptions['palette'] = {
     default: colors.white[500],
     paper: colors.white[50],
   },
+  success: colors.darkGreen,
+  error: colors.red,
 };
 
 const {
@@ -107,7 +110,10 @@ const themeFactory = (
             backgroundColor: colors.grey[200],
           },
           '&$focused': {
-            backgroundColor: colors.yellow[100],
+            backgroundColor: colors.grey[200],
+            '&:hover': {
+              backgroundColor: colors.grey[200],
+            },
           },
         },
       },
@@ -134,6 +140,11 @@ const themeFactory = (
       MuiIconButton: {
         root: {
           color: colors.grey[900],
+        },
+      },
+      MuiSnackbarContent: {
+        root: {
+          maxWidth: '80vw',
         },
       },
     },
