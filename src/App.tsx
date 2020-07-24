@@ -11,6 +11,7 @@ import { FoodList } from './components/FoodList';
 import { ListMenu } from './components/ListMenu';
 import { colors } from './theme/colors';
 import { Background } from './components/Background';
+import { FoodListScrollContainer } from './components/FoodListScrollContainer';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,13 +33,15 @@ const useStyles = makeStyles((theme) => ({
   },
   foodList: {
     flex: 1,
-    overflow: 'auto',
   },
   foodListContainer: {
     borderTopLeftRadius: theme.shape.borderRadius,
     borderTopRightRadius: theme.shape.borderRadius,
     borderBottomLeftRadius: 0,
     borderBottomRightRadius: 0,
+    borderTopWidth: 4,
+    borderTopColor: theme.palette.background.paper,
+    borderTopStyle: 'solid',
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
@@ -73,9 +76,9 @@ function App() {
             <ListMenu />
           </Box>
           <Paper className={classes.foodListContainer}>
-            <Box flex={1} className={classes.foodList}>
+            <FoodListScrollContainer className={classes.foodList}>
               <FoodList />
-            </Box>
+            </FoodListScrollContainer>
             <Box p={2}>
               <AddField fullWidth />
             </Box>
