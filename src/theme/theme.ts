@@ -103,8 +103,11 @@ const themeFactory = (
       MuiFilledInput: {
         root: {
           borderRadius: 24,
-          padding: spacing(1),
+          padding: `${spacing(1)}px ${spacing(2)}px`,
           backgroundColor: colors.grey[100],
+          '&:hover': {
+            backgroundColor: colors.grey[200],
+          },
           '&$focused': {
             backgroundColor: colors.yellow[100],
           },

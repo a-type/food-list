@@ -11,17 +11,18 @@ import { FoodList } from './components/FoodList';
 import { ListMenu } from './components/ListMenu';
 import { InstallPrompt } from './components/InstallPrompt';
 import { colors } from './theme/colors';
+import { Background } from './components/Background';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     height: '100vh',
-    overflow: 'hidden',
     backgroundColor: theme.palette.primary.main,
     color: colors.purple[600],
   },
   container: {
     height: '100vh',
-    overflow: 'hidden',
+    position: 'relative',
+    zIndex: 1,
     [theme.breakpoints.down('sm')]: {
       padding: 0,
     },
@@ -47,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flex: 1,
+    fontFamily: 'Pacifico, "Open Sans", "Roboto", Arial, Helvetica, sans-serif',
   },
 }));
 
@@ -55,6 +57,7 @@ function App() {
 
   return (
     <div className={classes.root}>
+      <Background />
       <Container maxWidth="md" className={classes.container}>
         <Box display="flex" flexDirection="column" height="100%" pt={2}>
           <InstallPrompt />

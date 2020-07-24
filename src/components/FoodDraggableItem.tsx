@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+    backgroundColor: theme.palette.background.paper,
   },
   dragging: {
     boxShadow: theme.shadows[8],

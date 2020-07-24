@@ -27,8 +27,8 @@ type Shadows = [
 ];
 
 export const generateShadows = (
-  lightColorRgb: number[] = [16, 37, 71],
-  darkColorRgb: number[] = [4, 12, 32],
+  lightColorRgb: number[] = [16, 37, 81],
+  darkColorRgb: number[] = [4, 12, 48],
 ): Shadows =>
   new Array(25).fill(null).map((_, idx) => {
     if (idx === 0) return 'none';
