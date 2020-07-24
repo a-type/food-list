@@ -10,6 +10,8 @@ export function useHasScroll<T extends HTMLElement>() {
   React.useEffect(() => {
     if (!ref.current) return;
 
+    const element = ref.current;
+
     function update(el: T) {
       const canScroll = el.scrollHeight > el.clientHeight;
       if (!canScroll) {
@@ -28,21 +30,21 @@ export function useHasScroll<T extends HTMLElement>() {
       }
     });
 
-    obs.observe(ref.current, {
+    obs.observe(element, {
       childList: true,
     });
 
-    update(ref.current);
+    update(element);
 
     const debouncedUpdate = debounce(() => {
       if (ref.current) update(ref.current);
     }, 100);
 
-    ref.current.addEventListener('scroll', debouncedUpdate);
+    element.addEventListener('scroll', debouncedUpdate);
 
     return () => {
       obs.disconnect();
-      ref.current?.removeEventListener('scroll', debouncedUpdate);
+      element?.removeEventListener('scroll', debouncedUpdate);
     };
   }, []);
 

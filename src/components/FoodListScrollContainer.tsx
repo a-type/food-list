@@ -3,7 +3,7 @@ import { useHasScroll } from '../hooks/useHasScroll';
 import { makeStyles } from '@material-ui/core';
 import clsx from 'clsx';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     position: 'relative',
     minHeight: 0,
