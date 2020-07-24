@@ -45,18 +45,12 @@ const useStyles = makeStyles((theme) => ({
     flex: '0 0 auto',
   },
   name: {
-    flex: '1',
     marginRight: theme.spacing(2),
-    [theme.breakpoints.up('sm')]: {
-      flex: '0 0 auto',
-    },
+    flex: '0 0 auto',
   },
   quantity: {
     flex: '0 0 auto',
-    marginRight: theme.spacing(2),
-    [theme.breakpoints.up('sm')]: {
-      marginRight: 'auto',
-    },
+    marginRight: 'auto',
   },
   handle: {
     flex: '0 0 auto',
@@ -66,6 +60,15 @@ const useStyles = makeStyles((theme) => ({
   originalIngredients: {
     opacity: 0.75,
     marginRight: theme.spacing(2),
+  },
+  textArrangement: {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'row',
+    [theme.breakpoints.down('xs')]: {
+      flexDirection: 'column',
+      alignItems: 'flex-start',
+    },
   },
 }));
 
@@ -96,15 +99,17 @@ export function FoodDraggableItem({
               }}
             />
           </ListItemIcon>
-          <ListItemText className={classes.name}>{item.food}</ListItemText>
-          <Chip
-            label={`${readableQuantity(item.quantity.value)} ${
-              (item.quantity.unit &&
-                pluralizeUnit(item.quantity.unit, item.quantity.value)) ||
-              ''
-            }`}
-            className={classes.quantity}
-          />
+          <div className={classes.textArrangement}>
+            <ListItemText className={classes.name}>{item.food}</ListItemText>
+            <Chip
+              label={`${readableQuantity(item.quantity.value)} ${
+                (item.quantity.unit &&
+                  pluralizeUnit(item.quantity.unit, item.quantity.value)) ||
+                ''
+              }`}
+              className={classes.quantity}
+            />
+          </div>
           <OriginalIngredients
             className={classes.originalIngredients}
             ingredients={item.items}

@@ -23,7 +23,8 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
     zIndex: 1,
     [theme.breakpoints.down('sm')]: {
-      padding: 0,
+      paddingLeft: theme.spacing(0.5),
+      paddingRight: theme.spacing(0.5),
     },
   },
   addField: {
