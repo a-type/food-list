@@ -3,6 +3,7 @@ import { makeStyles, Theme, Box } from '@material-ui/core';
 import { FoodListItem } from '../types';
 import { useList } from '../contexts/ListContext';
 import { FoodDraggableList } from './FoodDraggableList';
+import { EmptyState } from './EmptyState';
 
 export type FoodListProps = {
   className?: string;
@@ -86,6 +87,14 @@ export function FoodList(props: FoodListProps) {
     },
     [done, setList],
   );
+
+  if (list.length === 0) {
+    return (
+      <Box {...props} p={3}>
+        <EmptyState />
+      </Box>
+    );
+  }
 
   return (
     <Box {...props}>

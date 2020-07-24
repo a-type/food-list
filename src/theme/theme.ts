@@ -124,7 +124,7 @@ const themeFactory = (
       MuiFormLabel: {
         root: {
           '&$focused': {
-            color: colors.yellow[900],
+            color: colors.purple[900],
           },
         },
       },

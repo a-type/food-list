@@ -96,6 +96,7 @@ export function AddField(props: AddFieldProps) {
       onKeyDown={handleKeyDown}
       onPaste={handlePaste}
       label="Type or paste ingredients"
+      placeholder="1 1/2 c chopped red onion"
       {...props}
     />
   );
