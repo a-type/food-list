@@ -67,9 +67,7 @@ const themeFactory = (
         },
       },
       MuiButton: {
-        root: {
-          fontSize: '0.85rem',
-        },
+        root: {},
         textSecondary: {
           color: palette?.text?.secondary,
         },
@@ -115,9 +113,9 @@ const themeFactory = (
       },
       MuiInputLabel: {
         filled: {
-          transform: 'translate(18px, 28px) scale(1)',
+          transform: 'translate(24px, 28px) scale(1)',
           '&$shrink': {
-            transform: 'translate(18px, 10px) scale(0.75)',
+            transform: 'translate(24px, 10px) scale(0.75)',
           },
         },
       },

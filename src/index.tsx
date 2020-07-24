@@ -8,6 +8,10 @@ import { SnackbarProvider } from 'notistack';
 import './index.css';
 import { ThemeProvider, CssBaseline } from '@material-ui/core';
 import { lightTheme } from './theme/theme';
+import { UpdateListener } from './components/UpdateListener';
+import { SimpleNotifier } from './SimpleNotifier';
+
+const notifier = new SimpleNotifier<ServiceWorkerRegistration>();
 
 ReactDOM.render(
   <React.StrictMode>
@@ -15,6 +19,7 @@ ReactDOM.render(
       <CssBaseline />
 
       <SnackbarProvider>
+        <UpdateListener notifier={notifier} />
         <ListProvider>
           <App />
         </ListProvider>
@@ -24,4 +29,6 @@ ReactDOM.render(
   document.getElementById('root'),
 );
 
-serviceWorker.register();
+serviceWorker.register({
+  onUpdate: notifier.notify,
+});
