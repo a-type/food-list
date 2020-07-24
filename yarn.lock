@@ -1381,8 +1381,8 @@
 
 "@react-hook/copy@^2.0.1":
   version "2.0.1"
-  resolved "https://bandwidth.jfrog.io/bandwidth/api/npm/forge-npm/@react-hook/copy/-/copy-2.0.1.tgz#4f6eb2e0b0e84fe01ccdc0f3d37675a7f59a03c1"
-  integrity sha1-T26y4LDoT+AczcDz03Z1p/WaA8E=
+  resolved "https://registry.yarnpkg.com/@react-hook/copy/-/copy-2.0.1.tgz#4f6eb2e0b0e84fe01ccdc0f3d37675a7f59a03c1"
+  integrity sha512-GokUQqGRgc9u5wmPPsMumUOHpdh5cqhWZR9ZdVAzsIvb3f4of7g70ggncZSsaSTNhn0oVO7YXFvdySwycJx+ow==
 
 "@sheerun/mutationobserver-shim@^0.3.2":
   version "0.3.3"
