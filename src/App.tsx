@@ -9,7 +9,6 @@ import {
 import { AddField } from './components/AddField';
 import { FoodList } from './components/FoodList';
 import { ListMenu } from './components/ListMenu';
-import { InstallPrompt } from './components/InstallPrompt';
 import { colors } from './theme/colors';
 import { Background } from './components/Background';
 
@@ -60,7 +59,6 @@ function App() {
       <Background />
       <Container maxWidth="md" className={classes.container}>
         <Box display="flex" flexDirection="column" height="100%" pt={2}>
-          <InstallPrompt />
           <Box
             display="flex"
             flexDirection="row"

@@ -1,21 +1,8 @@
 import * as React from 'react';
-import {
-  makeStyles,
-  Theme,
-  Box,
-  Typography,
-  useMediaQuery,
-} from '@material-ui/core';
+import { Box, Typography, useMediaQuery } from '@material-ui/core';
 import { AddToHomeScreen, AddCircleOutline } from '@material-ui/icons';
 
-export type EmptyStateProps = {};
-
-const useStyles = makeStyles<Theme, EmptyStateProps>((theme) => ({}));
-
-export function EmptyState(props: EmptyStateProps) {
-  const classes = useStyles(props);
-  const {} = props;
-
+export function EmptyState() {
   const isMobile = useMediaQuery('only screen and (max-width: 760px)');
 
   return (

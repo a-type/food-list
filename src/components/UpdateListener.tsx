@@ -42,7 +42,7 @@ export function UpdateListener({
     return () => {
       notifier.clear();
     };
-  }, [notifier]);
+  }, [notifier, closeSnackbar, enqueueSnackbar]);
 
   return null;
 }

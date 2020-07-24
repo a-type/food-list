@@ -3,9 +3,7 @@ import { IconButton, MenuItem, Menu } from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
 import { useList } from '../contexts/ListContext';
 
-export type ListMenuProps = {};
-
-export function ListMenu(props: ListMenuProps) {
+export function ListMenu() {
   const { setList } = useList();
 
   const [anchorEl, setAnchorEl] = React.useState<Element | null>(null);

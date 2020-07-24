@@ -16,7 +16,7 @@ function reorder<T>(list: T[], startIndex: number, endIndex: number) {
   return result;
 }
 
-const useStyles = makeStyles<Theme, FoodListProps>((theme) => ({
+const useStyles = makeStyles<Theme, FoodListProps>(() => ({
   doneList: {
     opacity: 0.5,
   },

@@ -34,11 +34,7 @@ function getIcon() {
   return FOOD_ICONS[Math.floor(Math.random() * FOOD_ICONS.length)];
 }
 
-export type BackgroundProps = {
-  children?: React.ReactNode;
-};
-
-export function Background(props: BackgroundProps) {
+export function Background() {
   const [ref, { width, height }] = useMeasure({
     polyfill: ResizeObserver,
     debounce: 100,
