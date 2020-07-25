@@ -2,6 +2,7 @@ import * as React from 'react';
 import { FoodListItem } from '../types';
 import { loadList, saveList } from '../storage/listStorage';
 import { mergeIngredients } from 'ingredient-merge';
+import { mergeGroupToListItem } from '../utils/mergeGroupToListItem';
 
 export const ListContext = React.createContext<{
   list: FoodListItem[];
@@ -26,17 +27,12 @@ export function ListProvider({ children }: { children: React.ReactNode }) {
 
   const addIngredients = React.useCallback(
     (ingredients: string[]) => {
+      if (!ingredients) return;
       setList((existing) =>
         mergeIngredients(
           ingredients.filter((i) => !!i.trim()?.length),
           existing,
-        ).map((group) => {
-          const asItem = group as FoodListItem;
-          if (asItem.done === undefined) {
-            asItem.done = false;
-          }
-          return asItem;
-        }),
+        ).map(mergeGroupToListItem),
       );
     },
     [setList],
@@ -45,15 +41,9 @@ export function ListProvider({ children }: { children: React.ReactNode }) {
   const replaceIngredients = React.useCallback(
     (ingredients: string[]) => {
       setList(
-        mergeIngredients(ingredients.filter((i) => !!i.trim()?.length)).map(
-          (group) => {
-            const asItem = group as FoodListItem;
-            if (asItem.done === undefined) {
-              asItem.done = false;
-            }
-            return asItem;
-          },
-        ),
+        mergeIngredients(
+          (ingredients || []).filter((i) => !!i.trim()?.length),
+        ).map(mergeGroupToListItem),
       );
     },
     [setList],
