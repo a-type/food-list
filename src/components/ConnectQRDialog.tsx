@@ -25,7 +25,7 @@ export function ConnectQRDialog({
         });
       })();
     }
-  }, [serve, setConnected]);
+  }, [serve, setConnected, connected]);
 
   React.useEffect(() => {
     if (connected) {
