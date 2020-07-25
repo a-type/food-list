@@ -148,7 +148,7 @@ const themeFactory = (
           color: colors.grey[900],
         },
       },
-      MuiSnackbarContent: {
+      MuiSnackbar: {
         root: {
           maxWidth: '70vw',
         },

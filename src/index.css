@@ -1,3 +1,10 @@
 #root {
   height: 100vh;
 }
+
+@media (max-width: 599.95px) {
+  .snackbarRoot.snackbarRoot {
+    right: unset !important;
+    width: auto;
+  }
+}

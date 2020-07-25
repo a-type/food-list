@@ -25,7 +25,10 @@ ReactDOM.render(
     <BrowserRouter>
       <ThemeProvider theme={lightTheme}>
         <CssBaseline />
-        <SnackbarProvider anchorOrigin={anchorOrigin}>
+        <SnackbarProvider
+          anchorOrigin={anchorOrigin}
+          classes={{ containerRoot: 'snackbarRoot' }}
+        >
           <UpdateListener notifier={notifier} />
           <ListProvider>
             <BugoutProvider>
