@@ -117,14 +117,14 @@ const themeFactory = (
           },
         },
         input: {
-          padding: `${spacing(1)}px 0`,
+          padding: `${spacing(1)}px ${spacing(1)}px`,
         },
       },
       MuiInputLabel: {
         filled: {
           padding: `${spacing(0.5)}px ${spacing(2)}px`,
           borderRadius: 16,
-          transform: 'translate(24px, 12px) scale(1)',
+          transform: 'translate(8px, 12px) scale(1)',
           '&$shrink': {
             transform: 'translate(24px, -8px) scale(0.75)',
             backgroundColor: colors.grey[200],
