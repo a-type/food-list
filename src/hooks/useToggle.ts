@@ -2,7 +2,7 @@ import * as React from 'react';
 
 export function useToggle(
   initial?: boolean,
-  config?: { onOn?: () => void; onOff?: () => void },
+  { onOn, onOff }: { onOn?: () => void; onOff?: () => void } = {},
 ) {
   const [on, setOn] = React.useState(!!initial);
   const toggle = React.useCallback(
@@ -10,22 +10,22 @@ export function useToggle(
       if (typeof newState === 'boolean') {
         setOn(newState);
         if (newState) {
-          config?.onOn?.();
+          onOn?.();
         } else {
-          config?.onOff?.();
+          onOff?.();
         }
       } else {
         setOn((current) => {
           if (!current) {
-            config?.onOn?.();
+            onOn?.();
           } else {
-            config?.onOff?.();
+            onOff?.();
           }
           return !current;
         });
       }
     },
-    [setOn, config],
+    [setOn, onOn, onOff],
   );
   return [on, toggle] as const;
 }
