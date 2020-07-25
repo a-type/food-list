@@ -23,6 +23,9 @@ export function ConnectQRDialog({
         bugout.on('seen', () => {
           setConnected(true);
         });
+        bugout.on('rpc', () => {
+          setConnected(true);
+        });
       })();
     }
   }, [serve, setConnected, connected]);
