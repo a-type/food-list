@@ -14,7 +14,7 @@ That's never felt more necessary than at the time of writing, as visiting the gr
 
 🎇 **And** - It saves your list for you, so you can prep ahead of time and not worry about closing the tab.
 
-🤷‍♂️ **But** - There's no server, it's just a website. So you can't sync between devices or share with a partner. Working on ideas for that.
+🎆 **_And_** - It has a fully peer-to-peer sync feature, so you can compile a list on your laptop and send it to your phone before heading to the store!
 
 ## Developing
 
