@@ -110,18 +110,24 @@ const themeFactory = (
             backgroundColor: colors.grey[200],
           },
           '&$focused': {
-            backgroundColor: colors.grey[200],
+            backgroundColor: colors.grey[100],
             '&:hover': {
-              backgroundColor: colors.grey[200],
+              backgroundColor: colors.grey[100],
             },
           },
+        },
+        input: {
+          padding: `${spacing(1)}px 0`,
         },
       },
       MuiInputLabel: {
         filled: {
-          transform: 'translate(24px, 28px) scale(1)',
+          padding: `${spacing(0.5)}px ${spacing(2)}px`,
+          borderRadius: 16,
+          transform: 'translate(24px, 12px) scale(1)',
           '&$shrink': {
-            transform: 'translate(24px, 10px) scale(0.75)',
+            transform: 'translate(24px, -8px) scale(0.75)',
+            backgroundColor: colors.grey[200],
           },
         },
       },
