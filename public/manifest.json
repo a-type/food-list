@@ -20,8 +20,8 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff",
+  "theme_color": "#290f34",
+  "background_color": "#f6c667",
   "share_target": {
     "action": "/",
     "method": "GET",
