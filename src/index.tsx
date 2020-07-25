@@ -11,6 +11,7 @@ import { lightTheme } from './theme/theme';
 import { UpdateListener } from './components/UpdateListener';
 import { SimpleNotifier } from './SimpleNotifier';
 import { BugoutProvider } from './contexts/BugoutContext';
+import { BrowserRouter } from 'react-router-dom';
 
 const notifier = new SimpleNotifier<ServiceWorkerRegistration>();
 
@@ -21,18 +22,19 @@ const anchorOrigin = {
 
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeProvider theme={lightTheme}>
-      <CssBaseline />
-
-      <SnackbarProvider anchorOrigin={anchorOrigin}>
-        <UpdateListener notifier={notifier} />
-        <ListProvider>
-          <BugoutProvider>
-            <App />
-          </BugoutProvider>
-        </ListProvider>
-      </SnackbarProvider>
-    </ThemeProvider>
+    <BrowserRouter>
+      <ThemeProvider theme={lightTheme}>
+        <CssBaseline />
+        <SnackbarProvider anchorOrigin={anchorOrigin}>
+          <UpdateListener notifier={notifier} />
+          <ListProvider>
+            <BugoutProvider>
+              <App />
+            </BugoutProvider>
+          </ListProvider>
+        </SnackbarProvider>
+      </ThemeProvider>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root'),
 );

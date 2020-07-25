@@ -7,11 +7,13 @@ export const ListContext = React.createContext<{
   list: FoodListItem[];
   setList: React.Dispatch<React.SetStateAction<FoodListItem[]>>;
   addIngredients: (ingredients: string[]) => void;
+  replaceIngredients: (ingredients: string[]) => void;
   getOriginalIngredients: () => string[];
 }>({
   list: [],
   setList: () => [],
   addIngredients: () => {},
+  replaceIngredients: () => {},
   getOriginalIngredients: () => [],
 });
 
@@ -40,6 +42,23 @@ export function ListProvider({ children }: { children: React.ReactNode }) {
     [setList],
   );
 
+  const replaceIngredients = React.useCallback(
+    (ingredients: string[]) => {
+      setList(
+        mergeIngredients(ingredients.filter((i) => !!i.trim()?.length)).map(
+          (group) => {
+            const asItem = group as FoodListItem;
+            if (asItem.done === undefined) {
+              asItem.done = false;
+            }
+            return asItem;
+          },
+        ),
+      );
+    },
+    [setList],
+  );
+
   const getOriginalIngredients = React.useCallback(() => {
     return list.reduce<string[]>((items, group) => {
       return items.concat(group.items.map((i) => i.original));
@@ -48,7 +67,13 @@ export function ListProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <ListContext.Provider
-      value={{ list, setList, addIngredients, getOriginalIngredients }}
+      value={{
+        list,
+        setList,
+        addIngredients,
+        getOriginalIngredients,
+        replaceIngredients,
+      }}
     >
       {children}
     </ListContext.Provider>

@@ -144,7 +144,7 @@ const themeFactory = (
       },
       MuiSnackbarContent: {
         root: {
-          maxWidth: '80vw',
+          maxWidth: '70vw',
         },
       },
     },

@@ -8,6 +8,8 @@ declare module 'readable-fractions' {
 }
 
 declare module 'bugout' {
+  import { EventEmitter } from 'events';
+
   type MethodRegisterFn<IncomingArgs, ReplyArgs = IncomingArgs> = {
     (
       address: string,
@@ -20,16 +22,6 @@ declare module 'bugout' {
     seed?: string;
   };
 
-  type EventHandlers = {
-    /** on receiving a freeform message */
-    message: (address: string, message: any) => void;
-    /** on seeing a server */
-    server: (address: string) => void;
-    /** on seeing a client */
-    seen: (address: string) => void;
-  };
-  type EventType = keyof EventHandlers;
-
   type MethodDescription<InputArgs, ResponseArgs> = {
     input: InputArgs;
     response: ResponseArgs;
@@ -39,7 +31,9 @@ declare module 'bugout' {
     [methodName: string]: MethodDescription;
   };
 
-  class Bugout<MethodConfig extends MethodDescription = any> {
+  class Bugout<
+    MethodConfig extends MethodDescription = any
+  > extends EventEmitter {
     constructor(options?: BugoutOptions | string);
 
     /** registers a remote API a peer can invoke */
@@ -56,9 +50,6 @@ declare module 'bugout' {
 
     /** the public connection key for this server */
     address(): string;
-
-    /** subscribes to events */
-    on<T extends EventType>(eventType: T, handler: EventHandlers<T>): void;
 
     /** sends a freeform message */
     send(message: any): void;

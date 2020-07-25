@@ -1,16 +1,14 @@
 import * as React from 'react';
-import { IconButton, MenuItem, Menu, Button } from '@material-ui/core';
+import { IconButton, MenuItem, Menu, Button, Box } from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
 import { useList } from '../contexts/ListContext';
-import useCopy from '@react-hook/copy';
 import { useSnackbar } from 'notistack';
-import { ConnectQRDialog } from './ConnectQRDialog';
-import { ConnectScanDialog } from './ConnectScanDialog';
+import { useCopyList } from '../hooks/useCopyList';
 
 export function ListMenu() {
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
-  const { list, setList, getOriginalIngredients } = useList();
+  const { list, setList } = useList();
 
   const [anchorEl, setAnchorEl] = React.useState<Element | null>(null);
 
@@ -25,18 +23,7 @@ export function ListMenu() {
     handleClose();
   };
 
-  const memoizedIngredients = React.useMemo(() => {
-    return getOriginalIngredients().join('\n');
-  }, [getOriginalIngredients]);
-  const { copied, copy } = useCopy(memoizedIngredients);
-  const handleCopy = async () => {
-    await copy();
-    enqueueSnackbar('Copied all ingredients!', {
-      variant: 'success',
-      persist: true,
-    });
-    handleClose();
-  };
+  const { copy: handleCopy, copied } = useCopyList();
 
   const clearAll = () => {
     const current = list;
@@ -59,20 +46,8 @@ export function ListMenu() {
     handleClose();
   };
 
-  const [qrOpen, setQROpen] = React.useState(false);
-  const handleQROpen = () => {
-    setQROpen(true);
-    handleClose();
-  };
-
-  const [connectOpen, setConnectOpen] = React.useState(false);
-  const handleConnectOpen = () => {
-    setConnectOpen(true);
-    handleClose();
-  };
-
   return (
-    <>
+    <Box display="flex" flexDirection="row">
       <IconButton
         aria-controls="list-menu"
         aria-haspopup="true"
@@ -93,14 +68,7 @@ export function ListMenu() {
         <MenuItem onClick={handleCopy}>
           {copied ? 'Copied' : 'Copy list'}
         </MenuItem>
-        <MenuItem onClick={handleQROpen}>Sync to device</MenuItem>
-        <MenuItem onClick={handleConnectOpen}>Sync from device</MenuItem>
       </Menu>
-      <ConnectQRDialog open={qrOpen} onClose={() => setQROpen(false)} />
-      <ConnectScanDialog
-        open={connectOpen}
-        onClose={() => setConnectOpen(false)}
-      />
-    </>
+    </Box>
   );
 }
