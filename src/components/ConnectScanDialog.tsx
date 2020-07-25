@@ -26,7 +26,6 @@ export function ConnectScanDialog({
   const { enqueueSnackbar } = useSnackbar();
 
   const [stage, setStage] = React.useState<ConnectStage>('scan');
-  const [scannedData, setScannedData] = React.useState('');
   const [transferredList, setTransferredList] = React.useState<string[]>([]);
 
   const { addIngredients, replaceIngredients } = useList();
@@ -36,69 +35,55 @@ export function ConnectScanDialog({
     (error: Error) => {
       setStage('error');
       console.error(error);
-    },
-    [setStage],
-  );
-
-  // state transition effects
-  React.useEffect(() => {
-    if (stage === 'error') {
       enqueueSnackbar('Something went wrong while connecting', {
         variant: 'error',
       });
-    } else if (stage === 'transfer') {
-      if (!scannedData) return;
-      (async () => {
-        const timeout = window.setTimeout(() => {
-          handleError(new Error("Sorry, we couldn't connect."));
-        }, 60 * 1000);
-        try {
-          const bugout = await connect(scannedData);
-          bugout.rpc('requestList', null, ({ list: newItems }) => {
-            setTransferredList(newItems);
-            setStage('choice');
-            window.clearTimeout(timeout);
-          });
-        } catch (err) {
-          handleError(err);
-        }
-      })();
-    } else if (stage === 'done') {
-      enqueueSnackbar('Transfer complete', {
-        variant: 'success',
-      });
-      onClose();
-    }
-  }, [
-    stage,
-    enqueueSnackbar,
-    onClose,
-    connect,
-    setTransferredList,
-    setStage,
-    handleError,
-    scannedData,
-  ]);
+    },
+    [setStage, enqueueSnackbar],
+  );
 
   const handleScan = React.useCallback(
     (data: string) => {
       if (data) {
-        setScannedData(data);
         setStage('transfer');
+
+        (async () => {
+          const timeout = window.setTimeout(() => {
+            handleError(new Error("Sorry, we couldn't connect."));
+          }, 60 * 1000);
+          try {
+            const bugout = await connect(data);
+            bugout.rpc('requestList', null, ({ list: newItems }) => {
+              setTransferredList(newItems);
+              setStage('choice');
+              window.clearTimeout(timeout);
+            });
+          } catch (err) {
+            handleError(err);
+          }
+        })();
       }
     },
-    [setScannedData, setStage],
+    [setStage, handleError, setTransferredList, connect],
   );
 
   const replaceList = React.useCallback(() => {
     replaceIngredients(transferredList);
     setStage('done');
-  }, [replaceIngredients, transferredList, setStage]);
+    enqueueSnackbar('Transfer complete', {
+      variant: 'success',
+    });
+    onClose();
+  }, [replaceIngredients, transferredList, setStage, enqueueSnackbar, onClose]);
 
   const addList = React.useCallback(() => {
     addIngredients(transferredList);
     setStage('done');
-  }, [addIngredients, transferredList, setStage]);
+    enqueueSnackbar('Transfer complete', {
+      variant: 'success',
+    });
+    onClose();
+  }, [addIngredients, transferredList, setStage, enqueueSnackbar, onClose]);
 
   return (
     <Dialog open={open} onClose={onClose} fullWidth>
@@ -141,7 +126,7 @@ export function ConnectScanDialog({
             <Button
               variant="text"
               startIcon={<Refresh />}
-              onClick={() => setScannedData('')}
+              onClick={() => setStage('scan')}
             >
               Retry
             </Button>
