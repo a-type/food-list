@@ -10,6 +10,7 @@ import { ThemeProvider, CssBaseline } from '@material-ui/core';
 import { lightTheme } from './theme/theme';
 import { UpdateListener } from './components/UpdateListener';
 import { SimpleNotifier } from './SimpleNotifier';
+import { BugoutProvider } from './contexts/BugoutContext';
 
 const notifier = new SimpleNotifier<ServiceWorkerRegistration>();
 
@@ -26,7 +27,9 @@ ReactDOM.render(
       <SnackbarProvider anchorOrigin={anchorOrigin}>
         <UpdateListener notifier={notifier} />
         <ListProvider>
-          <App />
+          <BugoutProvider>
+            <App />
+          </BugoutProvider>
         </ListProvider>
       </SnackbarProvider>
     </ThemeProvider>

@@ -4,11 +4,13 @@ import { MoreVert } from '@material-ui/icons';
 import { useList } from '../contexts/ListContext';
 import useCopy from '@react-hook/copy';
 import { useSnackbar } from 'notistack';
+import { ConnectQRDialog } from './ConnectQRDialog';
+import { ConnectScanDialog } from './ConnectScanDialog';
 
 export function ListMenu() {
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
-  const { list, setList } = useList();
+  const { list, setList, getOriginalIngredients } = useList();
 
   const [anchorEl, setAnchorEl] = React.useState<Element | null>(null);
 
@@ -24,12 +26,8 @@ export function ListMenu() {
   };
 
   const memoizedIngredients = React.useMemo(() => {
-    return list
-      .reduce<string[]>((items, group) => {
-        return items.concat(group.items.map((i) => i.original));
-      }, [])
-      .join('\n');
-  }, [list]);
+    return getOriginalIngredients().join('\n');
+  }, [getOriginalIngredients]);
   const { copied, copy } = useCopy(memoizedIngredients);
   const handleCopy = async () => {
     await copy();
@@ -61,6 +59,18 @@ export function ListMenu() {
     handleClose();
   };
 
+  const [qrOpen, setQROpen] = React.useState(false);
+  const handleQROpen = () => {
+    setQROpen(true);
+    handleClose();
+  };
+
+  const [connectOpen, setConnectOpen] = React.useState(false);
+  const handleConnectOpen = () => {
+    setConnectOpen(true);
+    handleClose();
+  };
+
   return (
     <>
       <IconButton
@@ -83,7 +93,14 @@ export function ListMenu() {
         <MenuItem onClick={handleCopy}>
           {copied ? 'Copied' : 'Copy list'}
         </MenuItem>
+        <MenuItem onClick={handleQROpen}>Sync to device</MenuItem>
+        <MenuItem onClick={handleConnectOpen}>Sync from device</MenuItem>
       </Menu>
+      <ConnectQRDialog open={qrOpen} onClose={() => setQROpen(false)} />
+      <ConnectScanDialog
+        open={connectOpen}
+        onClose={() => setConnectOpen(false)}
+      />
     </>
   );
 }

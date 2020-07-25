@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { TextField } from '@material-ui/core';
 import { useList } from '../contexts/ListContext';
-import { mergeIngredients } from 'ingredient-merge';
-import { FoodListItem } from '../types';
 import { useSnackbar } from 'notistack';
 
 export type AddFieldProps = {
@@ -15,31 +13,19 @@ function hasTextContent(str: string) {
 }
 
 export function AddField(props: AddFieldProps) {
-  const { setList } = useList();
+  const { addIngredients } = useList();
 
   const onSubmit = React.useCallback(
     (rawString: string) => {
       const ingredients = rawString.split(/\n/).filter(hasTextContent);
 
-      setList((existing) =>
-        mergeIngredients(
-          ingredients.filter((i) => !!i.trim()?.length),
-          existing,
-        ).map((group) => {
-          // this could be improved
-          const asItem = group as FoodListItem;
-          if (asItem.done === undefined) {
-            asItem.done = false;
-          }
-          return asItem;
-        }),
-      );
+      addIngredients(ingredients);
 
       setTimeout(() => {
         setText('');
       }, 0);
     },
-    [setList],
+    [addIngredients],
   );
 
   const [text, setText] = React.useState('');
