@@ -54,8 +54,8 @@ const useStyles = makeStyles((theme) => ({
   },
   handle: {
     flex: '0 0 auto',
-    opacity: 0.5,
     paddingTop: 6,
+    color: theme.palette.grey[900],
   },
   originalIngredients: {
     opacity: 0.75,

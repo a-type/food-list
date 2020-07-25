@@ -17,6 +17,7 @@ const baseDarkPalette: ThemeOptions['palette'] = {
     paper: colors.purple[500],
   },
   success: colors.green,
+  grey: colors.grey,
 };
 const baseLightPalette: ThemeOptions['palette'] = {
   type: 'light',
@@ -32,6 +33,7 @@ const baseLightPalette: ThemeOptions['palette'] = {
   },
   success: colors.darkGreen,
   error: colors.red,
+  grey: colors.grey,
 };
 
 const {
