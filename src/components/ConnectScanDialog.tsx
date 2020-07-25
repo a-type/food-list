@@ -40,7 +40,7 @@ export function ConnectScanDialog({
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogContent>
-        <QrReader delay={300} onError={handleError} onScane={handleScan} />
+        <QrReader delay={300} onError={handleError} onScan={handleScan} />
       </DialogContent>
     </Dialog>
   );
