@@ -37,7 +37,7 @@ export function ConnectScanDialog({
       setStage('error');
       console.error(error);
     },
-    [enqueueSnackbar, setStage],
+    [setStage],
   );
 
   // state transition effects
@@ -77,6 +77,7 @@ export function ConnectScanDialog({
     setTransferredList,
     setStage,
     handleError,
+    scannedData,
   ]);
 
   const handleScan = React.useCallback(

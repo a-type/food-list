@@ -1,11 +1,5 @@
 import * as React from 'react';
-import {
-  makeStyles,
-  Theme,
-  Box,
-  IconButton,
-  Typography,
-} from '@material-ui/core';
+import { makeStyles, Box, IconButton, Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { ArrowBack } from '@material-ui/icons';
 import { DevicesMenu } from '../components/DevicesMenu';

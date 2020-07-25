@@ -25,7 +25,7 @@ export function useToggle(
         });
       }
     },
-    [setOn],
+    [setOn, config],
   );
   return [on, toggle] as const;
 }
