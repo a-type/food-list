@@ -43,25 +43,26 @@ export function ConnectScanDialog({
   );
 
   const handleScan = React.useCallback(
-    (data: string) => {
+    async (data: string) => {
       if (data) {
         setStage('transfer');
 
-        (async () => {
-          const timeout = window.setTimeout(() => {
-            handleError(new Error("Sorry, we couldn't connect."));
-          }, 60 * 1000);
-          try {
-            const bugout = await connect(data);
-            bugout.rpc('requestList', null, ({ list: newItems }) => {
-              setTransferredList(newItems);
-              setStage('choice');
-              window.clearTimeout(timeout);
-            });
-          } catch (err) {
-            handleError(err);
-          }
-        })();
+        const timeout = window.setTimeout(() => {
+          handleError(new Error("Sorry, we couldn't connect."));
+        }, 45 * 1000);
+        try {
+          console.debug(`Connecting to: ${data}`);
+          const bugout = await connect(data);
+          console.debug(`Requesting list`);
+          bugout.rpc('requestList', null, ({ list: newItems }) => {
+            setTransferredList(newItems);
+            console.debug(`Received: ${newItems.join(',')}`);
+            setStage('choice');
+            window.clearTimeout(timeout);
+          });
+        } catch (err) {
+          handleError(err);
+        }
       }
     },
     [setStage, handleError, setTransferredList, connect],
@@ -120,8 +121,10 @@ export function ConnectScanDialog({
         )}
         {stage === 'error' && (
           <Box>
-            Sorry, we couldn't connect devices. You can try again in a moment,
-            or just share your list directly to someone else.
+            <Typography>
+              Sorry, we couldn't connect devices. You can try again in a moment,
+              or just share your list directly to someone else.
+            </Typography>
             <ShareListButton />
             <Button
               variant="text"

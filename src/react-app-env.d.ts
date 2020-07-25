@@ -20,6 +20,7 @@ declare module 'bugout' {
 
   type BugoutOptions = {
     seed?: string;
+    announce?: string[];
   };
 
   type MethodDescription<InputArgs, ResponseArgs> = {
@@ -34,7 +35,7 @@ declare module 'bugout' {
   class Bugout<
     MethodConfig extends MethodDescription = any
   > extends EventEmitter {
-    constructor(options?: BugoutOptions | string);
+    constructor(addr?: BugoutOptions | string, options?: BugoutOptions);
 
     /** registers a remote API a peer can invoke */
     register<MethodName extends keyof MethodConfig>(

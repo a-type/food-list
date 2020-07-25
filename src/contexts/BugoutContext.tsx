@@ -2,20 +2,21 @@ import * as React from 'react';
 import Bugout from 'bugout';
 import { useList } from './ListContext';
 
-const SEED_STORAGE_KEY = 'foodlist-bugout-server-seed';
-const seed = localStorage.getItem(SEED_STORAGE_KEY);
-
 const DEBUG = false;
 if (DEBUG) {
   localStorage.setItem('debug', 'bugout,webtorrent');
 }
 
+const options = {
+  announce: ['wss://tracker.openwebtorrent.com', 'wss://tracker.btorrent.xyz'],
+};
+
 export const BugoutContext = React.createContext<{
-  get: () => Bugout<Methods>;
+  get: () => Bugout<Methods> | null;
   connect: (address: string) => Promise<Bugout<Methods>>;
   serve: () => Promise<Bugout<Methods>>;
 }>({
-  get: () => null as any,
+  get: () => null,
   connect: () => null as any,
   serve: () => null as any,
 });
@@ -39,16 +40,15 @@ export function BugoutProvider({ children }: { children: React.ReactNode }) {
     [getOriginalIngredients],
   );
 
-  const bugoutRef = React.useRef(
-    new Bugout<Methods>(seed ? { seed } : undefined),
-  );
+  const bugoutRef = React.useRef<Bugout<Methods> | null>(null);
 
   const connect = React.useCallback(
     (address: string) => {
-      bugoutRef.current = new Bugout<Methods>(address);
+      const bugout = new Bugout<Methods>(address, options);
+      bugoutRef.current = bugout;
       return new Promise<Bugout<Methods>>((resolve) => {
-        bugoutRef.current.on('server', () => {
-          resolve(bugoutRef.current);
+        bugout.on('server', () => {
+          resolve(bugout);
         });
       });
     },
@@ -58,12 +58,12 @@ export function BugoutProvider({ children }: { children: React.ReactNode }) {
   const get = React.useCallback(() => bugoutRef.current, [bugoutRef]);
 
   const serve = React.useCallback(() => {
-    bugoutRef.current = new Bugout<Methods>(seed ? { seed } : undefined);
-    localStorage.setItem(SEED_STORAGE_KEY, bugoutRef.current.seed);
+    const bugout = new Bugout<Methods>(options);
+    bugoutRef.current = bugout;
     initialize(bugoutRef.current);
     return new Promise<Bugout<Methods>>((resolve) => {
-      bugoutRef.current.on('seen', () => {
-        resolve(bugoutRef.current);
+      bugout.on('seen', () => {
+        resolve(bugout);
       });
     });
   }, [initialize, bugoutRef]);
