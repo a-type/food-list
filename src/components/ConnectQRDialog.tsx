@@ -17,12 +17,14 @@ export function ConnectQRDialog({
   const [connected, setConnected] = React.useState(false);
 
   React.useEffect(() => {
-    (async () => {
-      const bugout = await serve();
-      bugout.on('seen', () => {
-        setConnected(true);
-      });
-    })();
+    if (!connected) {
+      (async () => {
+        const bugout = await serve();
+        bugout.on('seen', () => {
+          setConnected(true);
+        });
+      })();
+    }
   }, [serve, setConnected]);
 
   React.useEffect(() => {
