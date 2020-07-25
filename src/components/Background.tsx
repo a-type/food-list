@@ -34,7 +34,7 @@ function getIcon() {
   return FOOD_ICONS[Math.floor(Math.random() * FOOD_ICONS.length)];
 }
 
-export function Background() {
+export const Background = React.memo(function () {
   const [ref, { width, height }] = useMeasure({
     polyfill: ResizeObserver,
     debounce: 100,
@@ -80,4 +80,4 @@ export function Background() {
         )}
     </div>
   );
-}
+});
