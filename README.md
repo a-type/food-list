@@ -1,5 +1,7 @@
 # Food List
 
+![Food list screenshot](https://github.com/a-type/food-list/blob/master/public/graph-image.png)
+
 If you're like me, a day rolls around each week where you think _I don't have any food_, and if it's before 6PM you also think, _I should go get groceries_.
 
 But then begins the turmoil of attempting to compile a grocery list. Because too few items on the list makes the trip less worthwhile - but you also suddenly can't remember any recipes you like.
