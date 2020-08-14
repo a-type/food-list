@@ -13,7 +13,7 @@ import clsx from 'clsx';
 import { DragHandle } from '@material-ui/icons';
 import pluralize from 'pluralize';
 import { toReadableFraction } from 'readable-fractions';
-import { OriginalIngredients } from './OriginalIngredients';
+import { FoodItemDetails } from './FoodItemDetails';
 
 function readableQuantity(quantity: number) {
   return toReadableFraction(quantity, true);
@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: 6,
     color: theme.palette.grey[900],
   },
-  originalIngredients: {
+  menu: {
     opacity: 0.75,
     marginRight: theme.spacing(2),
   },
@@ -110,10 +110,7 @@ export function FoodDraggableItem({
               className={classes.quantity}
             />
           </div>
-          <OriginalIngredients
-            className={classes.originalIngredients}
-            ingredients={item.items}
-          />
+          <FoodItemDetails className={classes.menu} item={item} />
           <div {...dragProvided.dragHandleProps} className={classes.handle}>
             <DragHandle />
           </div>

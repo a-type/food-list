@@ -10,12 +10,14 @@ export const ListContext = React.createContext<{
   addIngredients: (ingredients: string[]) => void;
   replaceIngredients: (ingredients: string[]) => void;
   getOriginalIngredients: () => string[];
+  editIngredient: (item: FoodListItem) => void;
 }>({
   list: [],
   setList: () => [],
   addIngredients: () => {},
   replaceIngredients: () => {},
   getOriginalIngredients: () => [],
+  editIngredient: () => {},
 });
 
 export function ListProvider({ children }: { children: React.ReactNode }) {
@@ -55,6 +57,14 @@ export function ListProvider({ children }: { children: React.ReactNode }) {
     }, []);
   }, [list]);
 
+  const editIngredient = React.useCallback((item: FoodListItem) => {
+    setList((existing) => {
+      const index = existing.findIndex((i) => i.id === item.id);
+      existing.splice(index, 1, item);
+      return [...existing];
+    });
+  }, []);
+
   return (
     <ListContext.Provider
       value={{
@@ -63,6 +73,7 @@ export function ListProvider({ children }: { children: React.ReactNode }) {
         addIngredients,
         getOriginalIngredients,
         replaceIngredients,
+        editIngredient,
       }}
     >
       {children}
