@@ -69,7 +69,7 @@ export function FoodItemDetails({ item, className }: FoodItemDetailsProps) {
           <Box mb={2}>
             <Typography variant="h4">Edit item</Typography>
             <Formik onSubmit={handleEdit} initialValues={item}>
-              {({}) => (
+              {() => (
                 <Form>
                   <div>
                     <Field
